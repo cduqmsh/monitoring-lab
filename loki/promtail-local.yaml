@@ -1,0 +1,28 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /data/promtail/positions.yaml
+
+clients:
+  - url: http://1.1.1.1:3100/loki/api/v1/push   ## loki 서버 IP:Port
+
+scrape_configs:
+- job_name: Jeus_Log1  ## 사용자 지정 가능
+  static_configs:
+  - targets:
+      - localhost  ## 대부분 localhost
+    labels:
+      job: PRD_FO_JEUS_LOG_FO1 ## 사용자 지정 가능
+      __path__: /data/webapps/JEUS/domains/fo/servers/FO1/logs/JeusServer.log
+      
+     
+ ### job name으로 구분해서 여러개 로그 수집 가능     
+ - job_name: Jeus_Log2  ## 사용자 지정 가능
+  static_configs:
+  - targets:
+      - localhost  ## 대부분 localhost
+    labels:
+      job: PRD_FO_JEUS_LOG_FO2 ## 사용자 지정 가능
+      __path__: /data/webapps/JEUS/domains/fo/servers/FO2/logs/JeusServer.log
